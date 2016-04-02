@@ -13,6 +13,14 @@ import SidebarView from 'views/sidebarView.js';
 import NewAnnotationView from 'views/newAnnotationView.js';
 import config from '../config';
 
+const onGlobalKey = (key, fn) => {
+  $(document).bind('keydown', key, e => {
+    e.stopPropagation();
+    fn(e);
+    return false;
+  });
+};
+
 var AppView = Backbone.View.extend({
   el: 'div#video-annotation',
 
@@ -92,31 +100,10 @@ var AppView = Backbone.View.extend({
   },
 
   bindEvents: function () {
-    var self = this;
-    $(document).bind('keydown', 'alt+s', function (e) {
-      e.stopPropagation();
-      self.changeframe();
-      return false;
-    });
-
-    $(document).bind('keydown', 'alt+e', function (e) {
-      e.stopPropagation();
-      self.createAnnotation();
-      return false;
-    });
-
-    $(document).bind('keydown', 'alt+d', function (e) {
-      e.stopPropagation();
-      self.quickAnnotation();
-      return false;
-    });
-
-    $(document).bind('keydown', 'esc', function (e) {
-      // TODO: remove stop propogation here
-      e.stopPropagation();
-      self.closeAnnotation(e);
-      return false;
-    });
+    onGlobalKey('alt+s', () => this.changeframe());
+    onGlobalKey('alt+e', () => this.createAnnotation());
+    onGlobalKey('alt+d', () => this.quickAnnotation());
+    onGlobalKey('esc', e => this.closeAnnotation(e));
   },
 
   bindResizeEvents: function () {

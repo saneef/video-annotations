@@ -1,40 +1,32 @@
 import _ from 'lodash';
 import Promise from 'bluebird';
 
-function promisify(fn) {
-  return new Promise((resolve, reject) => {
-    return fn(function (err, res) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(res);
-      }
-    });
-  });
-}
+const promisify = fn => new Promise((resolve, reject) => fn((err, res) => {
+  if (err) {
+    reject(err);
+  } else {
+    resolve(res);
+  }
+}));
 
-function promisifyStd(fn) {
-  return new Promise((resolve) => {
-    return fn(function (res) {
-      resolve(res);
-    });
-  });
-}
-
-var readingDropbox = function (dropboxFile) {
-  return promisify(dropboxFile.read.bind(dropboxFile))
-  .catch((error) => {
-    console.error(error);
-    return [];
-  });
+const promisifyStd = fn => {
+  return new Promise(resolve => fn(res => resolve(res)));
 };
 
-var readingStorage = function (localStorage) {
+const readingDropbox = dropboxFile => {
+  return promisify(dropboxFile.read.bind(dropboxFile))
+    .catch(error => {
+      console.error(error);
+      return [];
+    });
+};
+
+const readingStorage = localStorage => {
   return promisifyStd(localStorage.get.bind(localStorage));
 };
 
 // Exported for testing
-export function merge(sources, local, initialSync) {
+export const merge = (sources, local, initialSync) => {
   var storageData = _.cloneDeep(sources[1]);
   var dropboxData = sources[0];
 
@@ -60,21 +52,22 @@ export function merge(sources, local, initialSync) {
   });
 
   return merged.concat(storageData);
-}
+};
 
-var syncingData = function (localStorage, dropboxFile, collection, initialSync) {
-  return Promise.all([readingDropbox(dropboxFile), readingStorage(localStorage)]).then((data) => {
-    return merge(data, _.map(collection.models, (model) => model.toJSON()), initialSync);
-  }).then((jsonData) => {
-    if (initialSync) {
-      collection.set(jsonData, { silent: true });
-    }
+const syncingData = (localStorage, dropboxFile, collection, initialSync) => {
+  return Promise
+    .all([readingDropbox(dropboxFile), readingStorage(localStorage)])
+    .then(data => merge(data, _.map(collection.models, (model) => model.toJSON()), initialSync))
+    .then(jsonData => {
+      if (initialSync) {
+        collection.set(jsonData, { silent: true });
+      }
 
-    localStorage.save(jsonData);
-    dropboxFile.write(jsonData);
-  }).catch((err) => {
-    console.error(err);
-  });
+      localStorage.save(jsonData);
+      dropboxFile.write(jsonData);
+    }).catch((err) => {
+      console.error(err);
+    });
 };
 
 export default syncingData;

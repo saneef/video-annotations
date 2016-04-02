@@ -4,7 +4,7 @@ var BowerWebpackPlugin = require("bower-webpack-plugin");
 var production = process.env.NODE_ENV === 'production';
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 
-configObj = {
+const configObj = {
   entry:  {
     videoDetection: 'videoDetectionService',
     popup: 'views/popupView',

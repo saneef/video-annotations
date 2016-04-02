@@ -14,8 +14,12 @@ function (data) {
 
   function checkAndEnableFeature() {
     return function () {
-      if ($('video').length > 0) {
-        if (!$('#video-annotation')[0]) {
+      const hasVideo = $('video').length;
+      const $videoAnnotation = $('#video-annotation');
+      const hasVideoAnnotation = $videoAnnotation.length;
+
+      if (hasVideo) {
+        if (!hasVideoAnnotation) {
           var $video = Utils.getVideoInterface();
           $video.append($('#video-main-template').html());
         }
@@ -26,8 +30,8 @@ function (data) {
 
         app.render(videokey);
       } else {
-        if ($('#video-annotation')[0]) {
-          $('#video-annotation').remove();
+        if (hasVideoAnnotation) { // when would this happen?
+          $videoAnnotation.remove();
         }
       }
     };
