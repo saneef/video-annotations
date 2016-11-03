@@ -50,7 +50,7 @@ class AnnotationItem extends React.Component {
           <a href="#" className="seek" onClick={props.handleSeek}>
             <p className="annotation-title">{data.title}</p>
           </a>
-          <span className="label quick">{data.start_minutes}</span>
+          <span className="label quick">{data.startMinutes}</span>
           <a
             href="#"
             className="delete fa fa-trash"

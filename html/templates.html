@@ -5,12 +5,12 @@
       <a href='#' class='seek'>
         <p class='annotation-title'>{{title}}</p>
       </a>
-      {{#end_minutes}}
-      <span class='label time'>{{start_minutes}} - {{end_minutes}}</span>
-      {{/end_minutes}}
-      {{^end_minutes}}
-      <span class='label quick'>{{start_minutes}}</span>
-      {{/end_minutes}}
+      {{#endMinutes}}
+      <span class='label time'>{{startMinutes}} - {{endMinutes}}</span>
+      {{/endMinutes}}
+      {{^endMinutes}}
+      <span class='label quick'>{{startMinutes}}</span>
+      {{/endMinutes}}
       <a href='#' class='delete fa fa-trash' title='Delete'></a>
       <a href='#' class='edit fa fa-pencil' title='Edit'></a>
     </div>
