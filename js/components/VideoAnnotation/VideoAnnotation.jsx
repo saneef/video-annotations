@@ -55,7 +55,7 @@ class VideoAnnotation extends React.Component {
   }
 
   onAnnotationCreate(startSeconds, text, editId) {
-    const currentVideoTime = this.videoTag.currentTime;
+    const currentVideoTime = this.videoTag.getCurrentTime();
     this.props.createAnnotation(
       startSeconds,
       text,
