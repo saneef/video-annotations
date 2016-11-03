@@ -42,8 +42,8 @@ class AnnotationsVisual extends React.Component {
 
     const isSlotAvailable = (rBottom, rIndex, rAllNotes) => {
       const prevAnnotationTooClose = (annotation, prevAnnotation) => {
-        if (annotation.end_seconds) {
-          return prevAnnotation.end_seconds > annotation.startSeconds;
+        if (annotation.endSeconds) {
+          return prevAnnotation.endSeconds > annotation.startSeconds;
         }
         return this.prevAnnotationTooClose(annotation, prevAnnotation);
       };
@@ -76,8 +76,8 @@ class AnnotationsVisual extends React.Component {
   getVisualizedNotes(note, index, allNotes) {
 //    const controlsHeight = this.videoTag.getControlsHeight();
     const startTimeObj = this.getTime(note.startSeconds);
-    const endTimeObj = note.end_seconds ?
-                       this.getTime(note.end_seconds) : {};
+    const endTimeObj = note.endSeconds ?
+                       this.getTime(note.endSeconds) : {};
     const noteObj = {
       title: note.title,
       id: note.id,
@@ -85,7 +85,7 @@ class AnnotationsVisual extends React.Component {
       startSeconds: startTimeObj.seconds,
       endMinutes: endTimeObj.minutes,
       endSeconds: endTimeObj.seconds,
-      end_seconds: note.end_seconds,
+      endSeconds: note.endSeconds,
     };
 
     const bottom = this.getBottom(
@@ -96,7 +96,7 @@ class AnnotationsVisual extends React.Component {
       note.startSeconds
     );
 
-    visualPosition = note.end_seconds ?
+    visualPosition = note.endSeconds ?
                      visualPosition : visualPosition - 3;
     const left = this.videoTag.getSeekerPosition(note.startSeconds);
     noteObj.style = {

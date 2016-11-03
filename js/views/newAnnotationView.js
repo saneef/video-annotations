@@ -37,19 +37,19 @@ var NewAnnotationView = Backbone.View.extend({
     var uid = Date.now();
 
     // jscs: disable
-    var end_seconds = parseInt(this.videoTag.getCurrentTime());
+    var endSeconds = parseInt(this.videoTag.getCurrentTime());
     var annotationObj = _.extend({
       id: uid,
       startSeconds: this.startSeconds,
-      end_seconds: end_seconds,
+      endSeconds: endSeconds,
     }, Utils.splitAnnotation(value));
 
     if (this.isQuickAnnotation) {
-      annotationObj.startSeconds = end_seconds;
-      annotationObj.end_seconds = null;
+      annotationObj.startSeconds = endSeconds;
+      annotationObj.endSeconds = null;
       this.isQuickAnnotation = false;
     } else {
-      this.startSeconds = end_seconds;
+      this.startSeconds = endSeconds;
       // jscs: enable
     }
 

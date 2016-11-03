@@ -29,7 +29,7 @@ var AnnotationView = Backbone.View.extend({
 
   render: function () {
     this.secondsToMinutes('start_minutes', 'startSeconds');
-    this.secondsToMinutes('end_minutes', 'end_seconds');
+    this.secondsToMinutes('end_minutes', 'endSeconds');
 
     // jscs: disable
     $(this.el)

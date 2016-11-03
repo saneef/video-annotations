@@ -21,15 +21,15 @@ export default class AnnotationsVisual {
   renderAnnotations(isQuickAnnotation, annotation, index, sortedAnnotations) {
     annotation = annotation.toJSON();
 
-    if (isQuickAnnotation && annotation.end_seconds) {
+    if (isQuickAnnotation && annotation.endSeconds) {
       return;
-    } else if (!isQuickAnnotation && !annotation.end_seconds) {
+    } else if (!isQuickAnnotation && !annotation.endSeconds) {
       return;
     }
 
     const controlsHeight = this.videoTag.getControlsHeight();
     const startTimeObj = this.getTime(annotation.startSeconds);
-    const endTimeObj = annotation.end_seconds ? this.getTime(annotation.end_seconds) : {};
+    const endTimeObj = annotation.endSeconds ? this.getTime(annotation.endSeconds) : {};
 
     // jscs: disable
     $('#video-annotation').append(Mustache.to_html($('#annotation-visual-template').html(), {
@@ -39,7 +39,7 @@ export default class AnnotationsVisual {
       startSeconds: startTimeObj.seconds,
       endMinutes: endTimeObj.minutes,
       endSeconds: endTimeObj.seconds,
-      end_seconds: annotation.end_seconds
+      endSeconds: annotation.endSeconds
     }));
     // jscs: enable
 
@@ -49,7 +49,7 @@ export default class AnnotationsVisual {
     let visualPosition = this.videoTag.getSeekerPosition(annotation.startSeconds);
 
     // shift position to approximately centre the quick annotation visual around startSeconds
-    visualPosition = annotation.end_seconds ? visualPosition : visualPosition - 3;
+    visualPosition = annotation.endSeconds ? visualPosition : visualPosition - 3;
 
     // jscs: disable
     $annotationVisual.css({ bottom: bottom + 'px',
@@ -57,8 +57,8 @@ export default class AnnotationsVisual {
     // jscs: enable
 
     const startPos = this.videoTag.getSeekerPosition(annotation.startSeconds);
-    const endPos = annotation.end_seconds ?
-                    this.videoTag.getSeekerPosition(annotation.end_seconds) :
+    const endPos = annotation.endSeconds ?
+                    this.videoTag.getSeekerPosition(annotation.endSeconds) :
                     undefined;
 
     $('.' + annotation.id).each(function () {
@@ -77,8 +77,8 @@ export default class AnnotationsVisual {
       });
     }
 
-    if (annotation.end_seconds) {
-      const annotationDuration = annotation.end_seconds - annotation.startSeconds;
+    if (annotation.endSeconds) {
+      const annotationDuration = annotation.endSeconds - annotation.startSeconds;
       const width = annotationDuration * this.videoTag.getPixelsPerSecond();
       $annotationVisual.css('width', width + 'px');
       $annotationVisual.click(this.highlightAnnotation);
@@ -99,7 +99,7 @@ export default class AnnotationsVisual {
     const isSlotAvailable = (bottom, index, sortedAnnotations, isQuickAnnotation) => {
       for (let i = 0; i < index; i++) {
         let prevAnnotation = sortedAnnotations[i];
-        if (!isQuickAnnotation || !prevAnnotation.get('end_seconds')) {
+        if (!isQuickAnnotation || !prevAnnotation.get('endSeconds')) {
           if (prevAnnotationTooClose(annotation, prevAnnotation)) {
             if (bottom === this.annotationsHeightObj[prevAnnotation.get('id')]) {
               return false;
@@ -112,8 +112,8 @@ export default class AnnotationsVisual {
     };
 
     const prevAnnotationTooClose = (annotation, prevAnnotation) => {
-      if (annotation.end_seconds) {
-        return prevAnnotation.get('end_seconds') > annotation.startSeconds;
+      if (annotation.endSeconds) {
+        return prevAnnotation.get('endSeconds') > annotation.startSeconds;
       }
 
       return this.prevAnnotationTooClose(annotation, prevAnnotation);

@@ -50,7 +50,7 @@ class Annotations extends React.Component {
     const setTimes = (annotation, index, list) => {
       const nextStart = index < list.length - 1 ?
                         list[index + 1].startSeconds :
-                        annotation.end_seconds;
+                        annotation.endSeconds;
       return Object.assign({}, annotation, { nextStart });
     };
     const stateToComponent = (note) =>
