@@ -87,7 +87,7 @@ var SidebarView = Backbone.View.extend({
     this.eventPromises.then(() => {
       this.$el.find('.search-annotations').val('');
       this.$el.find('ul.annotations').empty();
-      this.addAll(this.collection.sort('start_seconds'));
+      this.addAll(this.collection.sort('startSeconds'));
     });
   },
 

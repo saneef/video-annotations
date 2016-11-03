@@ -12,7 +12,7 @@ var Annotations = Backbone.Collection.extend({
   },
 
   search: function (keyword) {
-    var models = this.sort('start_seconds');
+    var models = this.sort('startSeconds');
     if (keyword.length !== 0) {
       models = _.filter(models, function (model) {
         if (new RegExp(keyword, 'i').test(model.get('annotation'))) return model;

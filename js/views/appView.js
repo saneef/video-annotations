@@ -38,7 +38,7 @@ var AppView = Backbone.View.extend({
       creationTime: null,
       lastUpdate: null
     };
-    
+
     this.draggable = false;
 
     this.getVideoKey();
@@ -61,12 +61,12 @@ var AppView = Backbone.View.extend({
     options.videoKey = this.videoKey;
 
     // jscs: disable
-    this.videoFrame = new Frame({ start_seconds: 0 });
+    this.videoFrame = new Frame({ startSeconds: 0 });
     // jscs: enable
 
     this.updateMetadata();
     this.updateStorage();
-    
+
     this.videoFrame.on('change', this.updateFrame);
     this.videoTag = Utils.getVideoInterface();
 
@@ -74,7 +74,7 @@ var AppView = Backbone.View.extend({
     this.$el.html($(this.sidebarView.render().el));
     this.$el.find('.sidebar').addClass('sidebar-hidden');
     this.updateFrame();
-    
+
     // add an element to hold the summary page when needed
     $('body').append('<div id="summary-page" />');
   },
@@ -86,7 +86,7 @@ var AppView = Backbone.View.extend({
     });
 
     Annotations.reset(null, { silent: true });
-    
+
     this.sidebarView = new SidebarView({
       collection: Annotations,
       storage: this.storage,
@@ -157,7 +157,7 @@ var AppView = Backbone.View.extend({
   showSummary: function () {
     ReactViewManager.showSummary(this.videoTag);
   },
-  
+
   bindResize: function () {
     $(window).bind('resize', () => {
       if ($('#video-annotation').find('.annotation-marker')[0]) {
@@ -187,7 +187,7 @@ var AppView = Backbone.View.extend({
     });
     this.editor.codemirror.setOption('extraKeys', {
       Esc: () => this.cancelCreateAnnotation(),
-      
+
       'Alt-Enter': () => this.createByClick(),
 
       'Alt-P': () => this.videoTag.togglePlayback(),
@@ -199,8 +199,8 @@ var AppView = Backbone.View.extend({
   changeframe: function () {
 
     // jscs: disable
-    this.newAnnotationView.start_seconds = parseInt(this.videoTag.getCurrentTime());
-    this.videoFrame.set('start_seconds', this.newAnnotationView.start_seconds);
+    this.newAnnotationView.startSeconds = parseInt(this.videoTag.getCurrentTime());
+    this.videoFrame.set('startSeconds', this.newAnnotationView.startSeconds);
     this.marker.renderStartMarker();
     // jscs: enable
   },
@@ -257,7 +257,7 @@ var AppView = Backbone.View.extend({
 
   updateFrame: function () {
     this.$el.find('span.start_frame')
-        .html(Utils.minuteSeconds(this.videoFrame.get('start_seconds')));
+        .html(Utils.minuteSeconds(this.videoFrame.get('startSeconds')));
   },
 
   updateMetadata: function () {

@@ -31,7 +31,7 @@ class AnnotationItem extends React.Component {
 
     let arrowDirection = 'icon-title fa fa-caret-right';
     let display = 'none';
-    if ((now >= data.start_seconds &&
+    if ((now >= data.startSeconds &&
          now <= data.nextStart &&
          props.autoHighlight) ||
         expanded) {

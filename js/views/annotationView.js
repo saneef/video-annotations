@@ -28,7 +28,7 @@ var AnnotationView = Backbone.View.extend({
   },
 
   render: function () {
-    this.secondsToMinutes('start_minutes', 'start_seconds');
+    this.secondsToMinutes('start_minutes', 'startSeconds');
     this.secondsToMinutes('end_minutes', 'end_seconds');
 
     // jscs: disable
@@ -57,7 +57,7 @@ var AnnotationView = Backbone.View.extend({
   seek: function (e) {
     e.preventDefault();
     if (this.videoTag) {
-      this.videoTag.setCurrentTime(this.model.get('start_seconds'));
+      this.videoTag.setCurrentTime(this.model.get('startSeconds'));
     }
   },
 

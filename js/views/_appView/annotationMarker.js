@@ -12,7 +12,7 @@ export default class AnnotationMarker {
   renderStartMarker(updatePosition) {
     // jscs: disable
     $('#video-annotation').append(Mustache.to_html($('#annotation-start-marker-template').html(),
-      {startTime: this.getTime(this.newAnnotation.start_seconds) }));
+      {startTime: this.getTime(this.newAnnotation.startSeconds) }));
     // jscs: enable
 
     var marker = $('#video-annotation').find('.start-marker');
@@ -31,7 +31,7 @@ export default class AnnotationMarker {
 
     // jscs: disable
     marker.css({ bottom: position.bottom + 'px',
-      left: this.newAnnotation.videoTag.getSeekerPosition(this.newAnnotation.start_seconds) + 'px',
+      left: this.newAnnotation.videoTag.getSeekerPosition(this.newAnnotation.startSeconds) + 'px',
       'z-index': '1000' });
     // jscs: enable
     if (updatePosition) {
@@ -44,19 +44,19 @@ export default class AnnotationMarker {
   renderEndMarker() {
     // jscs: disable
     $('#video-annotation').append(Mustache.to_html($('#annotation-end-marker-template').html(),
-      { startTime: this.getTime(this.newAnnotation.start_seconds),
+      { startTime: this.getTime(this.newAnnotation.startSeconds),
         endTime: this.getTime(this.newAnnotation.videoTag.getCurrentTime()) }));
 
     var marker = $('#video-annotation').find('.end-marker');
 
-    var annotationDuration = this.newAnnotation.videoTag.getCurrentTime() - this.newAnnotation.start_seconds;
+    var annotationDuration = this.newAnnotation.videoTag.getCurrentTime() - this.newAnnotation.startSeconds;
     var width = annotationDuration * this.newAnnotation.videoTag.getPixelsPerSecond();
     marker.css({ width: width + 'px' });
 
     var position = Utils.getNewAnnotationPosition(marker);
 
     marker.css({ bottom: position.bottom + 'px',
-      left: this.newAnnotation.videoTag.getSeekerPosition(this.newAnnotation.start_seconds) + 'px' });
+      left: this.newAnnotation.videoTag.getSeekerPosition(this.newAnnotation.startSeconds) + 'px' });
     // jscs: enable
     $('#video-annotation').find('.annotation-marker').unbind();
     $('#video-annotation').find('.annotation-marker').css('opacity', '100');

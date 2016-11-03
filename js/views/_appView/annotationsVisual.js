@@ -13,7 +13,7 @@ export default class AnnotationsVisual {
 
     this.quickAnnotationBase = this.videoTag.getControlsHeight() + 8;
 
-    const sortedAnnotations = this.annotations.sortBy('start_seconds');
+    const sortedAnnotations = this.annotations.sortBy('startSeconds');
     sortedAnnotations.forEach(this.renderAnnotations.bind(this, false));
     sortedAnnotations.forEach(this.renderAnnotations.bind(this, true));
   }
@@ -28,7 +28,7 @@ export default class AnnotationsVisual {
     }
 
     const controlsHeight = this.videoTag.getControlsHeight();
-    const startTimeObj = this.getTime(annotation.start_seconds);
+    const startTimeObj = this.getTime(annotation.startSeconds);
     const endTimeObj = annotation.end_seconds ? this.getTime(annotation.end_seconds) : {};
 
     // jscs: disable
@@ -46,17 +46,17 @@ export default class AnnotationsVisual {
     let $annotationVisual = $('#' + annotation.id);
     let bottom = this.getBottom(annotation, index, sortedAnnotations, isQuickAnnotation);
 
-    let visualPosition = this.videoTag.getSeekerPosition(annotation.start_seconds);
+    let visualPosition = this.videoTag.getSeekerPosition(annotation.startSeconds);
 
-    // shift position to approximately centre the quick annotation visual around start_seconds
+    // shift position to approximately centre the quick annotation visual around startSeconds
     visualPosition = annotation.end_seconds ? visualPosition : visualPosition - 3;
 
     // jscs: disable
     $annotationVisual.css({ bottom: bottom + 'px',
-      left: this.videoTag.getSeekerPosition(annotation.start_seconds) + 'px' });
+      left: this.videoTag.getSeekerPosition(annotation.startSeconds) + 'px' });
     // jscs: enable
 
-    const startPos = this.videoTag.getSeekerPosition(annotation.start_seconds);
+    const startPos = this.videoTag.getSeekerPosition(annotation.startSeconds);
     const endPos = annotation.end_seconds ?
                     this.videoTag.getSeekerPosition(annotation.end_seconds) :
                     undefined;
@@ -78,7 +78,7 @@ export default class AnnotationsVisual {
     }
 
     if (annotation.end_seconds) {
-      const annotationDuration = annotation.end_seconds - annotation.start_seconds;
+      const annotationDuration = annotation.end_seconds - annotation.startSeconds;
       const width = annotationDuration * this.videoTag.getPixelsPerSecond();
       $annotationVisual.css('width', width + 'px');
       $annotationVisual.click(this.highlightAnnotation);
@@ -113,7 +113,7 @@ export default class AnnotationsVisual {
 
     const prevAnnotationTooClose = (annotation, prevAnnotation) => {
       if (annotation.end_seconds) {
-        return prevAnnotation.get('end_seconds') > annotation.start_seconds;
+        return prevAnnotation.get('end_seconds') > annotation.startSeconds;
       }
 
       return this.prevAnnotationTooClose(annotation, prevAnnotation);
@@ -136,10 +136,10 @@ export default class AnnotationsVisual {
 
     const quickAnnotationWidth = 7;
 
-    const annotationStartPos = this.videoTag.getSeekerPosition(annotation.start_seconds);
+    const annotationStartPos = this.videoTag.getSeekerPosition(annotation.startSeconds);
 
     const prevAnnotationStartPos = this.videoTag.
-                                    getSeekerPosition(prevAnnotation.get('start_seconds'));
+                                    getSeekerPosition(prevAnnotation.get('startSeconds'));
 
     return annotationStartPos - prevAnnotationStartPos < quickAnnotationWidth;
   }

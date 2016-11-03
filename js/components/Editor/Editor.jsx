@@ -32,7 +32,7 @@ class Editor extends React.Component {
     const oldAnnotation = this.props.annotation;
     const id = oldAnnotation ? oldAnnotation.id : '';
     this.props.handleAnnotationCreate(
-      this.props.start_seconds,
+      this.props.startSeconds,
       this.state.newAnnotationText,
       id
     );
@@ -98,7 +98,7 @@ Editor.propTypes = {
   handleAnnotationCancel: React.PropTypes.func.isRequired,
 
   annotation: React.PropTypes.object,
-  start_seconds: React.PropTypes.number,
+  startSeconds: React.PropTypes.number,
   videoTag: React.PropTypes.object,
 };
 

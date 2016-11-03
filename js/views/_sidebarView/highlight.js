@@ -28,9 +28,9 @@ export default class AutoHighlight {
 
       _.each(this.collection.models, (model) => {
         if ((model.get('end_seconds') !== null &&
-          currentSeconds >= model.get('start_seconds') &&
+          currentSeconds >= model.get('startSeconds') &&
           currentSeconds <= model.get('end_seconds')) ||
-          model.get('start_seconds') === currentSeconds) {
+          model.get('startSeconds') === currentSeconds) {
           this.$el.find('li.' + model.get('id') + ' .icon-title')
           .removeClass('fa-caret-right')
           .addClass('fa-caret-down');

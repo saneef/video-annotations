@@ -49,7 +49,7 @@ class Annotations extends React.Component {
       text.toLowerCase().indexOf(query) > -1;
     const setTimes = (annotation, index, list) => {
       const nextStart = index < list.length - 1 ?
-                        list[index + 1].start_seconds :
+                        list[index + 1].startSeconds :
                         annotation.end_seconds;
       return Object.assign({}, annotation, { nextStart });
     };
@@ -61,7 +61,7 @@ class Annotations extends React.Component {
         key={note.id}
         handleItemDelete={props.deleteItem(note.id)}
         handleItemEdit={this.onItemEdit(note)}
-        handleSeek={this.onSeek(note.start_seconds)}
+        handleSeek={this.onSeek(note.startSeconds)}
       />;
 
     const filteredAnnotations = props

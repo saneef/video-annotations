@@ -43,7 +43,7 @@ class AnnotationsVisual extends React.Component {
     const isSlotAvailable = (rBottom, rIndex, rAllNotes) => {
       const prevAnnotationTooClose = (annotation, prevAnnotation) => {
         if (annotation.end_seconds) {
-          return prevAnnotation.end_seconds > annotation.start_seconds;
+          return prevAnnotation.end_seconds > annotation.startSeconds;
         }
         return this.prevAnnotationTooClose(annotation, prevAnnotation);
       };
@@ -75,7 +75,7 @@ class AnnotationsVisual extends React.Component {
 
   getVisualizedNotes(note, index, allNotes) {
 //    const controlsHeight = this.videoTag.getControlsHeight();
-    const startTimeObj = this.getTime(note.start_seconds);
+    const startTimeObj = this.getTime(note.startSeconds);
     const endTimeObj = note.end_seconds ?
                        this.getTime(note.end_seconds) : {};
     const noteObj = {
@@ -93,12 +93,12 @@ class AnnotationsVisual extends React.Component {
     );
 
     let visualPosition = this.videoTag.getSeekerPosition(
-      note.start_seconds
+      note.startSeconds
     );
 
     visualPosition = note.end_seconds ?
                      visualPosition : visualPosition - 3;
-    const left = this.videoTag.getSeekerPosition(note.start_seconds);
+    const left = this.videoTag.getSeekerPosition(note.startSeconds);
     noteObj.style = {
       bottom: `${bottom}px`,
       left: `${left}px`,
@@ -108,7 +108,7 @@ class AnnotationsVisual extends React.Component {
       <NoteView
         note={noteObj}
         key={note.id}
-        onTimeClick={this.handleTimeClick(note.start_seconds)}
+        onTimeClick={this.handleTimeClick(note.startSeconds)}
       />
     );
   }
@@ -116,11 +116,11 @@ class AnnotationsVisual extends React.Component {
   prevAnnotationTooClose(annotation, prevAnnotation) {
     const quickAnnotationWidth = 7;
     const annotationStartPos = this.videoTag.getSeekerPosition(
-      annotation.start_seconds
+      annotation.startSeconds
     );
 
     const prevAnnotationStartPos = this.videoTag.getSeekerPosition(
-      prevAnnotation.start_seconds
+      prevAnnotation.startSeconds
     );
 
     return annotationStartPos - prevAnnotationStartPos < quickAnnotationWidth;
